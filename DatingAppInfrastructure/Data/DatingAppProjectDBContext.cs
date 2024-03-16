@@ -23,7 +23,7 @@ namespace DatingAppProject.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserInterest>()
-                .HasKey(ui => new { ui.UserId, ui.InterestId });
+                .HasKey(ui => ui.UserInterestId);
 
             modelBuilder.Entity<UserInterest>()
                 .HasOne(ui => ui.User)

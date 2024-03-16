@@ -191,18 +191,23 @@ namespace DatingAppProject.Infrastructure.Migrations
 
             modelBuilder.Entity("DatingAppProject.Infrastructure.Data.Models.UserInterest", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("UserInterestId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserInterestId"), 1L, 1);
 
                     b.Property<int>("InterestId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserInterestId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId", "InterestId");
+                    b.HasKey("UserInterestId");
 
                     b.HasIndex("InterestId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserInterests");
                 });

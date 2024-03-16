@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DatingAppProject.Infrastructure.Migrations
 {
-    public partial class initial : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -293,13 +293,14 @@ namespace DatingAppProject.Infrastructure.Migrations
                 name: "UserInterests",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    InterestId = table.Column<int>(type: "int", nullable: false),
                     UserInterestId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    InterestId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserInterests", x => new { x.UserId, x.InterestId });
+                    table.PrimaryKey("PK_UserInterests", x => x.UserInterestId);
                     table.ForeignKey(
                         name: "FK_UserInterests_AppUsers_UserId",
                         column: x => x.UserId,
@@ -392,6 +393,11 @@ namespace DatingAppProject.Infrastructure.Migrations
                 name: "IX_UserInterests_InterestId",
                 table: "UserInterests",
                 column: "InterestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserInterests_UserId",
+                table: "UserInterests",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
