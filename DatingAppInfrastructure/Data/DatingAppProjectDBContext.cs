@@ -66,13 +66,13 @@ namespace DatingAppProject.Infrastructure.Data
 
             modelBuilder.Entity<BlockedUser>()
                 .HasOne(b => b.Blocker) 
-                .WithMany()
+                .WithMany(b => b.BlockerUsers)
                 .HasForeignKey(b => b.BlockerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<BlockedUser>()
                 .HasOne(b => b.UserBlocked) 
-                .WithMany()
+                .WithMany(b => b.BlockedUsers)
                 .HasForeignKey(b => b.UserBlockedId)
                 .OnDelete(DeleteBehavior.Restrict);
 

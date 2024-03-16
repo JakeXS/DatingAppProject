@@ -40,6 +40,7 @@ namespace DatingAppProject.Infrastructure.Data.Models
         public ICollection<Message> ReceivedMessages { get; set; } = new List<Message>();
         public ICollection<Photo> Photos { get; set; } = new List<Photo>();
         public ICollection<BlockedUser> BlockedUsers { get; set; } = new List<BlockedUser>();
+        public ICollection<BlockedUser> BlockerUsers { get; set; } = new List<BlockedUser>();
     }
 }
 

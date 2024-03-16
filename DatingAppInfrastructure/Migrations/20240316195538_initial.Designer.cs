@@ -4,6 +4,7 @@ using DatingAppProject.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatingAppProject.Infrastructure.Migrations
 {
     [DbContext(typeof(DatingAppProjectDBContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240316195538_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,16 +41,11 @@ namespace DatingAppProject.Infrastructure.Migrations
                     b.Property<int>("UserBlockedId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("BlockId");
 
                     b.HasIndex("BlockerId");
 
                     b.HasIndex("UserBlockedId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("BlockedUsers");
                 });
@@ -417,20 +414,16 @@ namespace DatingAppProject.Infrastructure.Migrations
             modelBuilder.Entity("DatingAppProject.Infrastructure.Data.Models.BlockedUser", b =>
                 {
                     b.HasOne("DatingAppProject.Infrastructure.Data.Models.User", "Blocker")
-                        .WithMany()
+                        .WithMany("BlockerUsers")
                         .HasForeignKey("BlockerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DatingAppProject.Infrastructure.Data.Models.User", "UserBlocked")
-                        .WithMany()
+                        .WithMany("BlockedUsers")
                         .HasForeignKey("UserBlockedId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("DatingAppProject.Infrastructure.Data.Models.User", null)
-                        .WithMany("BlockedUsers")
-                        .HasForeignKey("UserId");
 
                     b.Navigation("Blocker");
 
@@ -564,6 +557,8 @@ namespace DatingAppProject.Infrastructure.Migrations
             modelBuilder.Entity("DatingAppProject.Infrastructure.Data.Models.User", b =>
                 {
                     b.Navigation("BlockedUsers");
+
+                    b.Navigation("BlockerUsers");
 
                     b.Navigation("Photos");
 
